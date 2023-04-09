@@ -4,18 +4,10 @@ from datetime import datetime
 
 class Field:
     def __init__(self, value):
-        self.__value = None
-        self.value = value
 
-    @property
-    def value(self):
-        return self.__value
-    
-    @value.setter
-    def value(self, value):
         if not isinstance(value, str):
             raise ValueError('Value must be a string')
-        self.__value = value
+        self.value = value
 
     def __str__(self) -> str:
         return str(self.value)
@@ -23,7 +15,7 @@ class Field:
     def __repr__(self) -> str:
         return str(self)
     
-
+    
 
 
 class Record(Field):
@@ -60,16 +52,39 @@ class Record(Field):
 class Phone(Field):
 
     def __init__(self, value):
+        self.__value = None
+        self.value = value
 
+    @property
+    def value(self):
+        return self.__value
+    
+    @value.setter
+    def value(self, value):
         if not isinstance(value, int):
             raise ValueError('Must be a interger')
         if len(str(value)) != 12:
             raise ValueError('Number must have only 12 number')
-        self.value = value
+        self.__value = value
 
 
 class Name(Field):
-    pass
+
+    def __init__(self, value):
+        self.__value = None
+        self.value = value
+
+    @property
+    def value(self):
+        return self.__value
+    
+    @value.setter
+    def value(self, value):
+        if not isinstance(value, str):
+            raise ValueError('Must be a string')
+        if len(value) < 2 and len(value) > 15:
+            raise ValueError('Number must have only 12 number')
+        self.__value = value
 
 
 class Birthday(Field):
@@ -79,7 +94,7 @@ class Birthday(Field):
         try:
             self.value = datetime.strptime(value, '%Y.%m.%d')
         except ValueError:
-            print('It is not a data. Try year, month, day')
+            print('It is not a data. Try year.month.day')
 
             
 class AdressBook(UserDict):

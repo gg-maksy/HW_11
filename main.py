@@ -8,7 +8,7 @@ def input_error(func):
     def inner(*args):
         try:
             return func(*args)
-        except IndexError:
+        except ValueError:
             return 'Not enough params. Type help.'
     return inner
 
@@ -18,7 +18,7 @@ def list_of_params(*args):
     conteiner = args[0].split()
 
     if not conteiner:
-        raise IndexError
+        raise ValueError
     
     return conteiner
 
@@ -67,7 +67,7 @@ def add(*args):
             return f'Contact {name} was added'
         
     else:
-        raise IndexError
+        raise ValueError
 
 
 def exit(*args):
@@ -115,7 +115,7 @@ def change_contact(*args):
         return f'Contact {lst[0]} was change'
     
     else:
-        raise IndexError
+        raise ValueError
 
 
 def remove_contact(*args):
